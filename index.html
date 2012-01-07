@@ -1,42 +1,64 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="iphone.js"></script>
-  <link rel="stylesheet" href="iphone.css" type="text/css" />
-  <title>iMalic</title>
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="index,follow" name="robots" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<link href="pics/homescreen.gif" rel="apple-touch-icon" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<link href="css/style.css" rel="stylesheet" media="screen" type="text/css" />
+<script src="javascript/functions.js" type="text/javascript"></script>
+<title>iMalic</title>
+<link href="pics/startup.png" rel="apple-touch-startup-image" />
+<meta content="iPod,iPhone,Webkit,iWebkit,Website,Create,mobile,Tutorial,free" name="keywords" />
+<meta content="Try out all the new features of iWebKit 5 with a simple touch of a finger and a smooth screen rotation!" name="description" />
 </head>
+
 <body>
-<div id="container">
-  <div id="header">
-  	<h1>iMalic</h1>
-  	<div id="utility">
-  	    <ul>
-  	    	<li><a href="menu.html">Menu</a></li>
-  	    	<li><a href="tools.html">Tools</a></li>
-  	    </ul>
-  	  </div>
-  	  <div class="leftButton" onclick="toggleMenu()"></div>
-  	  <div id="nav">
-  	  	  <ul>
-  	  	  
-  	  	  	 <li><a href="ininjas.com/forum/index.php">Ininjas</a></li>
-  	  	  	 <li><a href="support.html">Support</a></li>
-  	  	  	 <li><a href="Development.html">Development</a></li>
-  	  	  </ul>
-  	  	</div>
-  	  </div>
-  	  <div id="content">
-  	  	<h2></h2>
-  	  	<p></p>
-  	  </div>
-  	  <div id="footer">
-  	    <p class="subtle"></p>
-  	  </div>
-  	 </div>
-  	 </body>
-  	 </html>
-  	    	
-  	    	
-  	  	
-  	  	  	 
-  	   	
+
+<div id="topbar">
+	<div id="title">
+		iMalic installer</div>
+	<div id="leftbutton">
+		<a href="Settings.html" class="noeffect">Settings</a> </div>
+	<div id="rightbutton">
+		<a href="about.html" class="noeffect">About</a> </div>
+</div>
+<div id="content">
+	<span class="graytitle">iMalic</span>
+	<ul class="pageitem">
+		<li class="textbox"><span class="header">iMalic installer</span><p>
+		welcome to the iMalic installer made by the ininjas dev team! browse around a little..</p>
+		</li>
+		<li class="menu"><a href="hacktools.html">
+		<img alt="list" src="thumbs/imalic.png" /><span class="name">The Hacktools</span><span class="arrow"></span></a></li>
+		<li class="menu"><a href="navigation.html">
+		<img alt="wordpress" src="thumbs/start.png" /><span class="name">Development</span><span class="arrow"></span></a></li>
+		<li class="menu"><a href="form.html">
+		<img alt="music" src="thumbs/help.png" /><span class="name">About Us</span><span class="arrow"></span></a></li>
+		<li class="menu"><a href="integration.html">
+		<img alt="store" src="thumbs/other.png" /><span class="name">Categories</span><span class="arrow"></span></a></li>
+		<li class="menu"><a href="blogrss.php">
+		<img alt="wordpress" src="thumbs/appstore.png" /><span class="name">Search</span><span class="comment">embedded</span><span class="arrow"></span></a></li>
+	</ul>
+	<ul class="pageitem">
+		<li class="store"><a href="classiclist.html"><span class="image" style="background-image: url('pics/classiclist.png')"></span>
+		<span class="name">Hack tools</span><span class="arrow"></span></a></li>
+		<li class="store"><a href="applist.html"><span class="image" style="background-image: url('pics/applist.png')"></span>
+		<span class="name">DoS</span><span class="arrow"></span></a></li>
+		<li class="store"><a href="storelist.html"><span class="image" style="background-image: url('pics/ituneslist.png')"></span>
+		<span class="name">Pentesting</span><span class="arrow"></span></a></li>
+		<li class="store"><a href="ituneslist.html"><span class="image" style="background-image: url('pics/itunesmusiclist.png')"></span>
+		<span class="name"></span><span class="arrow"></span></a></li>
+		<li class="store"><a href="ipodlist.html"><span class="image" style="background-image: url('pics/ipodlist.png')"></span>
+		<span class="name"></span><span class="arrow"></span></a></li>
+	</ul>
+</div>
+<div id="footer">
+	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for my work :-) -->
+	<a class="noeffect" href="http://snippetspace.com">iPhone site powered by iWebKit</a></div>
+
+</body>
+
+</html>
