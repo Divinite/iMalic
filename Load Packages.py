@@ -5,38 +5,36 @@ import glob
 
 # A whole bunch of defines
 MasterPackages={}
-package="Package"
-version="Version"
+
+Tags=['Package', 'Name', 'Section', 'Description']
 
 path = '/var/lib/apt/lists'
-for  packages in glob.glob( os.path.join(path, '*_Packages') ):
-    repo = packages.split(path)[1].split('/')[1] # gets the repo url
-    print repo+'> '
-    RepoDict = {}
-    reader = open(packages)
-    PackageDict={}
+for  packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
+    reader = open(packagesfile)
+    PkgInfo={}
+    LastTag=''
     for line in reader.readlines():
-        line=line.split('\n')[0].split('\r')[0]
-        if len(line) >= 1:
-            if line.startswith('Package: '):
-                PackageDict[package]=line.split(': ')[1]
-            elif line.startswith('Version'):
-                PackageDict[version]=line.split(': ')[1]
-        else: # newline, commit to repodict
-            try:
-                RepoDict[PackageDict[package]]=PackageDict
-                PackageDict={}
-            except KeyError:
-                pass
-#                print "Warning...problem lading "
-#                print PackageDict
-#                print RepoDict
-#                print line
-#                print packages
-#                print repo
-#                raw_input()
+        line=line.strip()
+        if line == '':
+            if LastTag != "Description":
+                if PkgInfo.has_key('Package'):
+                    PackageID=PkgInfo['Package']
+                    del PkgInfo['Package']
+                    if MasterPackages.has_key(PackageID): # TODO:
+                        pass # check version number to find out which is newer
+                    MasterPackages[PackageID]=PkgInfo
+                    PkgInfo={}
+            #else:
+            #    PkgInfo['Description']=PkgInfo[Description]+"\n"
+        elif len(line.split(': ',1)) == 2:
+            line=line.split(':', 1)
+            if line[0] in Tags:
+                LastTag=line[0]
+                PkgInfo[line[0]]=line[1]
+        else:
+            if line.startswith(' '):
+                PkgInfo['Description']=PkgInfo[Description]+line+"\n"
     reader.close()
-    MasterPackages[repo]=RepoDict
 raw_input("All Packages Loaded, press enter to view")
 writer = open("output",'w')
 writer.write(str(MasterPackages))
