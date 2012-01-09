@@ -12,26 +12,32 @@ Sections = shelve.open('../Cache/Sections', writeback=True)
 # ls -1 | grep Packages | grep -v Packages.|  sed -e 's|_Packages||' | tr '_' '/'
 
 def CommitPakgage(pkg):
-    if pkg.has_key('Section'):
+    if pkg.has_key('Package'):
+        PID=pkg['Package'].replace(' ','')
+        del pkg['Package'] 
+        print 'Processing ' + PID
+        PkgBrowse[PID]={}
+        if not pkg.has_key('Section'):
+            pkg['Section'] = 'No Catagory'
         if not Sections.has_key(pkg['Section']):
-            Sections[pkg['Section']]={}
-        if pkg.has_key('Package'):            
-            Sections[pkg['Section']][pkg['Package']]=shelve.open('../Cache/Packages/'+pkg['Package'],writeback=True)
-            for tag in pkg:
-                
-            Sections[pkg['Section']][pkg['Package']]
-            if pkg.has_key('Name'): # just to be explicit
-                Sections[pkg['Section']][pkg['Package']]['Name'] = pkg['Name']
-            else: # use the package id as the name
-                Sections[pkg['Section']][pkg['Package']]['Name'] = pkg['Package']
-            Sections[pkg['Section']][pkg['Package']].close()
+            Sections[pkg['Section']]={} # if there is no dictionary for this section, create one
+        Sections[pkg['Section']][PID]=shelve.open('../Cache/Packages/'+PID,writeback=True)
+        if pkg.has_key('Name'):
+            Sections[pkg['Section']][PID]['Name'] = pkg['Name']
+            PkgBrowse[PID]['Name'] = pkg['Name']
         else:
-            #screw it, if there is no package id we can't install it
-            #so just forget recording it at all
-            return None # that should stop the execution of this function
-            
-        
-
+            Sections[pkg['Section']][PID]['Name'] = PID
+            PkgBrowse[PID]['Name'] = PID
+        if pkg.has_key('Icon'):
+            PkgBrowse[PID]['Icon'] = pkg['Icon']
+        for tag in pkg:
+            if tag != 'Section': # to avoid storing section as well
+                Sections[pkg['Section']][PID][tag] = pkg[tag]
+        Sections[pkg['Section']][PID].close()
+    else:
+        #screw it, if there is no package id we can't install it
+        #so just forget recording it at all
+        return None # that should stop the execution of this function\
 
 Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
       'dev', 'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon',
@@ -43,6 +49,8 @@ Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
       'Recommends', 'Enhances']
 
 path = '/var/lib/apt/lists'
+i = 0
+o = 0 
 for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
     reader = open(packagesfile)
     PkgInfo={}
@@ -50,12 +58,20 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
     LastTag=''
     line = reader.readline()
     while True: # the NullCount Var will break when we reach 100 null lines
+        i = i + 1
         line=line.strip()
         if line != '':
             line = line.split(': ',1)
             if len(line) == 2: # looks like there is a tag there
                 if line[0] in Tags:
                     LastTag = line[0]
+                    if PkgInfo.has_key(line[0]):
+                        if line[0] == 'Package':
+                            print 'Warning Overwriting '
+                            print '   ' + line[0] + ': ' + PkgInfo[line[0]]
+                            print 'With:'
+                            print '   ' + line[0] + ': ' + line[1]
+                            o = o + 1
                     PkgInfo[line[0]] = line[1]
                     # aka pkginfo[tag] = value
                 else: # it looks like a tag, but isn't
@@ -63,52 +79,25 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
                         PkgInfo['Description']=PkgInfo['Description']+'\n'+line[0]+': '+line[1]
                         # add the value to the description
                     else:
-                        pass
+                        print 'Warning: Discarding ' + line[0] + ': ' + line [1]
+                        raw_input()
                         # discard the info because idk what to do with it
         else:
             if LastTag == 'Description': # some descriptions have blank lines
                 PkgInfo['Description']=PkgInfo['Description'] #apt is almost nastier than HTMl
             elif PkgInfo.has_key('Package'): # the problem is that you have to account for all
-                pass # commit package        # stupid things people can do, and do all the
-            NullCount = NullCount + 1        # time and expect to work
+                CommitPakgage(PkgInfo)       # stupid things people can do, and do all the
+                PkgInfo={}                   # time and expect to work
+            else:
+                print 'Warning Null Line Falling Through'
+                raw_input()
+            NullCount = NullCount + 1
             if NullCount == 100:
                 break
             
         line = reader.readline()
-MasterPackages.close()
+PkgBrowse.close()
+Sections.close()
 print "Updated Cache"
-
-
-'''
-           if LastTag != "Description":
-                if PkgInfo.has_key('Package'):
-                    PackageID=PkgInfo['Package']
-                    del PkgInfo['Package']
-                    if MasterPackages.has_key(PackageID): # TODO:
-                        pass # check version number to find out which is newer
-                    MasterPackages[PackageID]=PkgInfo
-                    print PackageID
-                    PkgInfo={}
-                else:
-                    NullCount=NullCount+1
-                    if NullCount == 100:
-                        NullCount = 0
-                        reader.close()
-                        break
-            else:
-                PkgInfo["Description"]=PkgInfo["Description"]+'\n'
-        elif len(line.split(': ', 1)) == 2:
-            line=line.split(': ', 1)
-            if line[0] in Tags:
-                LastTag=line[0]
-                PkgInfo[line[0]]=line[1]
-            else:
-                if LastTag == 'Description':
-                    line=line[0]+': '+line[1]
-                    if  line.startswith(' '): #descriptions should be indented by one space
-                        PkgInfo['Desciption']=PkgInfo['Description']+'\n'+line
-                #if it fails all of these tests then idk what that data is
-        else:
-            if PkgInfo.has_key('Descriptiom'):
-                PkgInfo['Description']=PkgInfo[Description]+'\n'+line
-                '''
+print 'Read ' + str(i) +' lines'
+print 'Overwrote ' + str (o) +' Packages'
