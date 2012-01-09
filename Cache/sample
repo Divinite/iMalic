@@ -1,0 +1,30 @@
+Filename: ./debs/zlib_1.2.3-1_iphoneos-arm.deb
+MD5sum: 0fa141a4778fc8599d64042419206750
+Size: 86680
+Package: zlib
+Name: zlib
+Version: 1.2.3-1
+Architecture: iphoneos-arm
+Replaces: zlib
+Description: A massively spiffy yet delicately unobtrusive compression library.
+Depiction: http://ininjas.com/forum/index.php?topic=284.0;theme=14
+Maintainer: Trcx <trcx528@gmail.com>
+Sponsor: iNinjas <repo@ininjas.com>
+Section: Libraries
+Tag: role::developer
+
+Filename: ./debs/zope.interface_3.6.4-1-1_iphoneos-arm.deb
+MD5sum: 7850d421fb08c4a6e03e0c7bc4a22d77
+Size: 162466
+Package: zope.interface
+Name: zope.interface
+Version: 3.6.4-1-1
+Architecture: iphoneos-arm
+Depends: python
+Description: This package provides an implementation of "object interfaces" for Python. Interfaces are a mechanism for labeling objects as conforming to a given API or 
+contract. So, this package can be considered as implementation of the Design By Contract methodology support in Python.
+Depiction: http://ininjas.com/forum/index.php?topic=778;theme=14
+Maintainer: BooCocky
+Sponser: iNinjas <repo@ininjas.com>
+Section: Development
+Tag: Role:: Developer

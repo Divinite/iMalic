@@ -38,6 +38,8 @@ import select
 import SimpleHTTPServer
 import Cookie
 
+os.chdir("../FrontEnd")
+
 chars = string.ascii_letters + string.digits
 sessionDict = {} # dictionary mapping session id's to session objects
 
@@ -220,12 +222,8 @@ class ScriptRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         return sessionObject
 
 if __name__=="__main__":
-    # launch the server on the specified port
     import SocketServer
     port = 1337
-    s=SocketServer.TCPServer(('',port),ScriptRequestHandler)
+    s=SocketServer.TCPServer(('127.0.0.1',port),ScriptRequestHandler)
     print "ScriptServer running on port %s" %port
     s.serve_forever()
-## end of http://code.activestate.com/recipes/392879/ }}}
-
-
