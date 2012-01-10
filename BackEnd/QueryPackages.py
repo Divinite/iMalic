@@ -1,23 +1,28 @@
 #!/usr/bin/python
 
-import shelve
+print 'Loading...' # the import takes a moment, so that's why I'm doing it here
 
-print 'Loading...'
+from buzhug import Base 
 
-PkgBrowse = shelve.open('../Cache/PkgBrowse', writeback=False)
-Sections = shelve.open('../Cache/Sections', writeback=False)
+db=Base('../Cache/db')
+try:
+    db.open()
+except IOError:
+    print 'Error: db not found!'
+    exit()
 
+print 'Querying db for packages...'
 i = 0
-for PID in PkgBrowse:
+for record in db :
     i = i + 1
 
 print 'Loaded ' + str(i) + ' Packages'
-print 'Enter a Package id to query, or press ^C to exit'
+print 'Please enter the package id that you wish to look up'
+print 'Press ^C to exit'
 while True:
-    PID = raw_input('\nPackage ID> ')
-    if PID in PkgBrowse:
-        Package = shelve.open('../Cache/Packages/'+PID, writeback=False)
-        print PID + ':'
-        for tag in Package:
-            print '    ' + tag + ': ' + Package[tag]
-        Package.close()
+    ID = raw_input('\nPackage ID> ')
+    record = db.select(Package = ID)
+    if record != []:
+        print record[0]
+    else:
+        print "Package no found"
