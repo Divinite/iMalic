@@ -11,7 +11,9 @@ start_time = time.time()
 TotalPackages=0
 errors={}
 path = '/var/lib/apt/lists'
-DBPath = '../Cache/Packages.db'
+DBTable = 'AvaliblePacakges'
+DBFolder = '../Cache'
+DBPath = DBFolder+'/Master.sqlite'
 Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
       'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon', 'Depiction',
       'Filename', 'MD5sum', 'Size', 'Maintainer', 'Sponsor', 'SHA256',
@@ -39,20 +41,18 @@ print 'to by an advanced user.\n'
 if not raw_input('Proceed? [y/N]: ') in [ 'y', 'Y', 'yes', 'YES' ]:
     exit()
 
-try:
-    os.system('rm '+DBPath+'>/dev/null 2>&1') # quick and dirty
-except:
-    pass
+os.system('mkdir -p '+DBFolder) # just make sure the folder is there
 
 db = sqlite3.connect(DBPath)
 c = db.cursor()
-c.execute('create table packages (Package string)')
+c.execute('drop table if exists '+DBTable)
+db.commit()
+c.execute('create table ' + DBTable + ' (Package string)')
 db.commit()
 for tag in Tags:
     if tag != 'Package':
-        c.execute("alter table packages add column '" + tag + "' 'string'")
+        c.execute("alter table " + DBTable + " add column '" + tag + "' 'string'")
         db.commit()
-#c.close()
 
 print '\nThis will take a couple minutes.'
 print 'Rebuild in process...please wait'
@@ -65,13 +65,12 @@ def CommitPackage(Package):
         for tag in Tags:
 #        for tag in Package: # bad line, but good for benchmarking since it forces a rewrite of the DB, discarding anythin cached
             TagList.append(Package[tag])
-        query = 'INSERT INTO packages VALUES(%s)' % ','.join(['?'] * len(TagList))
-#        try:
-        c.execute(query, TagList)
-#        except:
-#            print 'Error: ', sys.exc_info()[0], 'While Processing ', Package['Package']
-#            return sys.exc_info()[0]
-#        cursor.close()
+        query = 'INSERT INTO ' + DBTable + ' VALUES(%s)' % ','.join(['?'] * len(TagList))
+        try:
+            c.execute(query, TagList)
+        except:
+            print 'Error: ', sys.exc_info()[0], 'While Processing ', Package['Package']
+            return sys.exc_info()[0]
     else: # just to be explicit, because I hate discarding data
         pass # no package ID, then there is nothing we can do with it
 
