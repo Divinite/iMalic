@@ -20,14 +20,29 @@ Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
       'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances',
       'Pre-Depends', 'Installed-Size']
         
-print ('Warning this will destroy any existing databases')
-if raw_input('Proceed? [y/N]: ') != 'y':
+os.system('clear')
+print '####################################################'
+print '#                                          1/12/12 #'
+print '#           iMalic DataBase Rebuild Tool           #'
+print '#               Written By: Trcx528                #'
+print '#               <Trcx528@gmail.com>                #'  # I'm going to regret having done this..
+print '#                                                  #'
+print '#  Check Out iNinjas.com for more iPhone utilites! #'
+print '#                                                  #'
+print '####################################################'
+print ''
+print 'WARNING: This will destroy and rebuild iMalic\'s'
+print 'package database! You must let the script finish'
+print 'otherwise iMalic will be rendered unusable!\n'
+print 'DO NOT use this tool, unless explicitly instructed'
+print 'to by an advanced user.\n'
+if not raw_input('Proceed? [y/N]: ') in [ 'y', 'Y', 'yes', 'YES' ]:
     exit()
 
 try:
     os.system('rm '+DBPath+'>/dev/null 2>&1') # quick and dirty
 except:
-    pass 
+    pass
 
 db = sqlite3.connect(DBPath)
 c = db.cursor()
@@ -37,33 +52,27 @@ for tag in Tags:
     if tag != 'Package':
         c.execute("alter table packages add column '" + tag + "' 'string'")
         db.commit()
-c.close()
+#c.close()
 
+print '\nThis will take a couple minutes.'
+print 'Rebuild in process...please wait'
 def CommitPackage(Package):
     if 'Package' in Package:
-        global TotalPackages
-        TotalPackages=TotalPackages+1
-        print 'Processing ' + Package['Package']
         for tag in Tags:
             if not tag in Package:
                 Package[tag]='?' # fill in the blanks
-        cursor = db.cursor()
         TagList=[]
-        for tag in Package:
-            TagList.append("'"+Package[tag]+"'")
+        for tag in Tags:
+#        for tag in Package: # bad line, but good for benchmarking since it forces a rewrite of the DB, discarding anythin cached
+            TagList.append(Package[tag])
         query = 'INSERT INTO packages VALUES(%s)' % ','.join(['?'] * len(TagList))
-        #print query
-        #raw_input()
-        try:
-            cursor.execute(query, TagList)
-        except:
-            print 'Error: ', sys.exc_info()[0] #While Processing ', Package['Package']
-            print query
-            raw_input()
-            return sys.exc_info()[0]
-        db.commit()
-        cursor.close()
-    else:
+#        try:
+        c.execute(query, TagList)
+#        except:
+#            print 'Error: ', sys.exc_info()[0], 'While Processing ', Package['Package']
+#            return sys.exc_info()[0]
+#        cursor.close()
+    else: # just to be explicit, because I hate discarding data
         pass # no package ID, then there is nothing we can do with it
 
 for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
@@ -77,30 +86,32 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
                 if len(line) == 2: # looks like there is a tag there
                     if line[0] in Tags:
                         LastTag = line[0]
-                        PkgInfo[line[0]] = line[1]
-                        # aka pkginfo[tag] = value
-                    else: # it looks like a tag, but isn't
+                        PkgInfo[line[0]] = line[1] # aka pkginfo[tag] = value
+                    else: # it looks like a tag, but isn't in our tag list
                         if 'Description' in PkgInfo :
                             PkgInfo['Description']=PkgInfo['Description']+'\n'+line[0]+': '+line[1]
                             # add the value to the description
-                        else: # just to be explicit
+                        else: # just to be explicit because I hate discarding data
                             pass # discard the info because idk what it is
             else:
                 if LastTag == 'Description':# some descriptions have blank lines
                     PkgInfo['Description']=PkgInfo['Description'] + '\n' 
                 elif 'Package' in PkgInfo:
                     PkgInfo['Package']=PkgInfo['Package'].replace(' ', '')
+                    TotalPackages += 1
                     RetVal = CommitPackage(PkgInfo)
                     if RetVal != None:
                         errors[PkgInfo['Package']]=RetVal
                     PkgInfo={}
-                else:
+                else: # just to be explict because I hate discarding data
                     pass  # idk what to do with it so I'll do nothing
+c.close()
+db.commit()
 db.close()
-print 'Loaded '+str(TotalPackages)+' Packages'
+print '\nProcessed '+str(TotalPackages)+' Packages'
 if len(errors) != 0:
     print "There were ",len(errors)," Errors during processing"
     raw_input('Press Enter To View')
     for PID in errors:
         print 'Encounter an ', errors[PID], ' when processing ', PID
-print "Execution time: ", time.time() - start_time, "seconds"
+print "Execution time: ", time.time() - start_time, "Seconds"
