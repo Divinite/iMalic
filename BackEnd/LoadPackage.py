@@ -6,7 +6,6 @@ import sys
 import glob
 import sqlite3
 import time
-import re
 
 start_time = time.time()
 TotalPackages=0
@@ -17,7 +16,7 @@ Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
       'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon', 'Depiction',
       'Filename', 'MD5sum', 'Size', 'Maintainer', 'Sponsor', 'SHA256',
       'Version', 'Architecture', 'Author', 'Priority', 'SHA1', 'Conflicts',
-      'Replaces',  'price', 'Essential', 'Bundle', 'Website', 'Suggests',
+      'Replaces',  'Price', 'Essential', 'Bundle', 'Website', 'Suggests',
       'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances',
       'Pre-Depends', 'Installed-Size']
         
@@ -45,24 +44,21 @@ def CommitPackage(Package):
         global TotalPackages
         TotalPackages=TotalPackages+1
         print 'Processing ' + Package['Package']
-        #sql_insert = ('INSERT INTO packages (%s) VALUES (%s)' % 
-        #      (','.join('%s' % name for name in Package),
-        #       ','.join('%%(%s)s' % name for name in Package)))
         for tag in Tags:
             if not tag in Package:
-                Package[tag] = '' # fill in the blanks
+                Package[tag]='?' # fill in the blanks
         cursor = db.cursor()
         TagList=[]
         for tag in Package:
-            TagList.append('"'+re.escape(Package[tag])+'"')
-        query="INSERT INTO packages VALUES("+','.join(TagList)+");"
+            TagList.append("'"+Package[tag]+"'")
+        query = 'INSERT INTO packages VALUES(%s)' % ','.join(['?'] * len(TagList))
+        #print query
+        #raw_input()
         try:
-            #print query
-            cursor.execute(query)
+            cursor.execute(query, TagList)
         except:
             print 'Error: ', sys.exc_info()[0] #While Processing ', Package['Package']
             print query
-            print Package['Package']
             raw_input()
             return sys.exc_info()[0]
         db.commit()
@@ -87,7 +83,7 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
                         if 'Description' in PkgInfo :
                             PkgInfo['Description']=PkgInfo['Description']+'\n'+line[0]+': '+line[1]
                             # add the value to the description
-                        else:
+                        else: # just to be explicit
                             pass # discard the info because idk what it is
             else:
                 if LastTag == 'Description':# some descriptions have blank lines
