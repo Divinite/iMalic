@@ -10,6 +10,8 @@ import time
 start_time = time.time()
 TotalPackages=0
 errors={}
+IDV={} # id:version
+duplicates=0
 path = '/var/lib/apt/lists'
 DBTable = 'AvaliblePacakges'
 DBFolder = '../Cache'
@@ -57,22 +59,31 @@ for tag in Tags:
 print '\nThis will take a couple minutes.'
 print 'Rebuild in process...please wait'
 def CommitPackage(Package):
-    if 'Package' in Package:
-        for tag in Tags:
-            if not tag in Package:
-                Package[tag]='?' # fill in the blanks
-        TagList=[]
-        for tag in Tags:
-#        for tag in Package: # bad line, but good for benchmarking since it forces a rewrite of the DB, discarding anythin cached
-            TagList.append(Package[tag])
-        query = 'INSERT INTO ' + DBTable + ' VALUES(%s)' % ','.join(['?'] * len(TagList))
-        try:
-            c.execute(query, TagList)
-        except:
-            print 'Error: ', sys.exc_info()[0], 'While Processing ', Package['Package']
-            return sys.exc_info()[0]
-    else: # just to be explicit, because I hate discarding data
-        pass # no package ID, then there is nothing we can do with it
+    if Package['Package'] in IDV:
+        if 'Version' in Package:
+            try:
+                if not Package['Version'].replace('-', '.') >= IDV[Package['Package']].replace('-'):
+                    return None
+            except:
+                return None # do not replace
+        else: 
+            return None # do not replace
+    elif 'Version' in Package:
+        IDV[Package['Package']]=Package['Version']
+
+    for tag in Tags:
+        if not tag in Package:
+            Package[tag]='?' # fill in the blanks
+    TagList=[]
+    for tag in Tags:
+#    for tag in Package: # bad line, but good for benchmarking since it forces a rewrite of the DB, discarding anythin cached
+        TagList.append(Package[tag])
+    query = 'INSERT INTO ' + DBTable + ' VALUES(%s)' % ','.join(['?'] * len(TagList))
+    try:
+        c.execute(query, TagList)
+    except:
+        print 'Error: ', sys.exc_info()[0], 'While Processing ', Package['Package']
+        return sys.exc_info()[0]
 
 for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
     with open(packagesfile) as reader:
@@ -89,9 +100,15 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
                     else: # it looks like a tag, but isn't in our tag list
                         if 'Description' in PkgInfo :
                             PkgInfo['Description']=PkgInfo['Description']+'\n'+line[0]+': '+line[1]
+                            #print 'Appended: ', PkgInfo['Description']
                             # add the value to the description
                         else: # just to be explicit because I hate discarding data
-                            pass # discard the info because idk what it is
+                            pass
+                            #print 'Discarding: ' + str(line)
+                elif LastTag == 'Description':
+                    PkgInfo['Description']=PkgInfo['Description'] + '\n' + ': '.join(line)
+                else:
+                    pass #print 'Discarding: ' + str(line)
             else:
                 if LastTag == 'Description':# some descriptions have blank lines
                     PkgInfo['Description']=PkgInfo['Description'] + '\n' 
@@ -103,7 +120,7 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
                         errors[PkgInfo['Package']]=RetVal
                     PkgInfo={}
                 else: # just to be explict because I hate discarding data
-                    pass  # idk what to do with it so I'll do nothing
+                    pass #print 'Discarding: ' + line
 c.close()
 db.commit()
 db.close()
@@ -114,3 +131,4 @@ if len(errors) != 0:
     for PID in errors:
         print 'Encounter an ', errors[PID], ' when processing ', PID
 print "Execution time: ", time.time() - start_time, "Seconds"
+

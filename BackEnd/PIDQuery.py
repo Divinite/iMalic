@@ -8,7 +8,12 @@ DBPath = DBFolder+'/Master.sqlite'
 
 db = sqlite3.connect(DBPath)
 c = db.cursor()
-tags=['Name','Section', 'Version', 'Filename']
+tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
+      'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon', 'Depiction',
+      'Filename', 'MD5sum', 'Size', 'Maintainer', 'Sponsor', 'SHA256',
+      'Version', 'Architecture', 'Author', 'Priority', 'SHA1', 'Conflicts',
+      'Replaces',  'Price', 'Essential', 'Bundle', 'Website', 'Suggests',
+      'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances']
 
 print 'Enter a Package ID to Look Up\nPress ^C to Exit'
 while True:
@@ -21,7 +26,8 @@ while True:
         print 'Result '+str(i)
         o = 0
         for tag in tags:
-            print tag + ': ' + str(row[o])
+            if str(row[o]) != '?':
+                print tag + ': ' + str(row[o])
             o += 1
     if i == 0 :
         print 'No Packages Found'
