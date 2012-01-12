@@ -2,71 +2,71 @@
 
 from __future__ import with_statement
 import os
+import sys
 import glob
-from buzhug import Base
+import sqlite3
+import time
+import re
 
+start_time = time.time()
+TotalPackages=0
+errors={}
 path = '/var/lib/apt/lists'
-
+DBPath = '../Cache/Packages.db'
 Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
-      'dev', 'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon',
-      'Depiction', 'Filename', 'MD5sum', 'Size', 'Maintainer', 'Sponsor',
-      'SHA256', 'Version', 'Architecture', 'Author', 'Priority', 'SHA1', 'tag',
-      'Conflicts', 'Replaces',  'price',
-      'appsidydev', 'Essential', 'Bundle', 'Website', 'Suggests', 'Provides',
-      'Price', 'Languages', 'Support', 'More', 'Recommends', 'Enhances']
-        # damn reserved keywords!
-        #'Pre-Depends', 'Installed-Size', <----python no like
-        # i'll figure out how to fix it later
+      'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon', 'Depiction',
+      'Filename', 'MD5sum', 'Size', 'Maintainer', 'Sponsor', 'SHA256',
+      'Version', 'Architecture', 'Author', 'Priority', 'SHA1', 'Conflicts',
+      'Replaces',  'price', 'Essential', 'Bundle', 'Website', 'Suggests',
+      'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances',
+      'Pre-Depends', 'Installed-Size']
         
+print ('Warning this will destroy any existing databases')
+if raw_input('Proceed? [y/N]: ') != 'y':
+    exit()
 
-db = Base('../Cache/db')
 try:
-    db.create()
-    for tag in Tags:
-        db.add_field(tag, str)
-except IOError: # already exists
-    if raw_input('Database exists, clear it? [Y/n] '):
-        db.destroy()
-        db.create()
-        for tag in Tags:
-            db.add_field(tag, str)
-    else:
-        db.open()
+    os.system('rm '+DBPath+'>/dev/null 2>&1') # quick and dirty
+except:
+    pass 
 
-def CommitPackage (Package={}): # define as {} for auto complete purposes
+db = sqlite3.connect(DBPath)
+c = db.cursor()
+c.execute('create table packages (Package string)')
+db.commit()
+for tag in Tags:
+    if tag != 'Package':
+        c.execute("alter table packages add column '" + tag + "' 'string'")
+        db.commit()
+c.close()
+
+def CommitPackage(Package):
     if 'Package' in Package:
+        global TotalPackages
+        TotalPackages=TotalPackages+1
         print 'Processing ' + Package['Package']
+        #sql_insert = ('INSERT INTO packages (%s) VALUES (%s)' % 
+        #      (','.join('%s' % name for name in Package),
+        #       ','.join('%%(%s)s' % name for name in Package)))
         for tag in Tags:
             if not tag in Package:
-                Package[tag]=''
-        # I Have a feeling that this is going to be ugly :(
-        db.insert(Package=Package['Package'],  Name=Package['Name'],
-                  Section=Package['Section'],
-                  Description=Package['Description'],
-                  Publisher=Package['Publisher'],  IconName=Package['IconName'],
-                  dev=Package['dev'],  Contact=Package['Contact'],
-                  Source=Package['Source'],  Tag=Package['Tag'],
-                  Depends=Package['Depends'],  Homepage=Package['Homepage'],
-                  Icon=Package['Icon'],  Depiction=Package['Depiction'],
-                  Filename=Package['Filename'],  MD5sum=Package['MD5sum'],
-                  Size=Package['Size'],  Maintainer=Package['Maintainer'],
-                  Sponsor=Package['Sponsor'],  SHA256=Package['SHA256'],
-                  Version=Package['Version'],
-                  Architecture=Package['Architecture'],
-                  Author=Package['Author'],  Priority=Package['Priority'],
-                  SHA1=Package['SHA1'],  tag=Package['tag'],
-                  Conflicts=Package['Conflicts'],  Replaces=Package['Replaces'],
-#                  Pre-Depends=Package['Pre-Depends'], # see line 17
-#                 Installed-Size=Package['Installed-Size'], # ^
-                  price=Package['price'],  appsidydev=Package['appsidydev'],
-                  Essential=Package['Essential'],  Bundle=Package['Bundle'],
-                  Website=Package['Website'],  Suggests=Package['Suggests'],
-                  Provides=Package['Provides'],  Price=Package['Price'],
-                  Languages=Package['Languages'],  Support=Package['Support'],
-                  More=Package['More'],  Recommends=Package['Recommends'],
-                  Enhances=Package['Enhances'])
-        # yes ugly would be an understatment
-        
+                Package[tag] = '' # fill in the blanks
+        cursor = db.cursor()
+        TagList=[]
+        for tag in Package:
+            TagList.append('"'+re.escape(Package[tag])+'"')
+        query="INSERT INTO packages VALUES("+','.join(TagList)+");"
+        try:
+            #print query
+            cursor.execute(query)
+        except:
+            print 'Error: ', sys.exc_info()[0] #While Processing ', Package['Package']
+            print query
+            print Package['Package']
+            raw_input()
+            return sys.exc_info()[0]
+        db.commit()
+        cursor.close()
     else:
         pass # no package ID, then there is nothing we can do with it
 
@@ -88,16 +88,23 @@ for packagesfile in glob.glob( os.path.join(path, '*_Packages') ):
                             PkgInfo['Description']=PkgInfo['Description']+'\n'+line[0]+': '+line[1]
                             # add the value to the description
                         else:
-                            pass
-                            # discard the info because idk what to do with it
+                            pass # discard the info because idk what it is
             else:
-                if LastTag == 'Description': # some descriptions have blank lines
-                    PkgInfo['Description']=PkgInfo['Description'] + '\n' #apt is almost nastier than HTMl
-                elif 'Package' in PkgInfo: # the problem is that you have to account for all
-                    CommitPackage(PkgInfo)       # stupid things people can do, and do all the
-                    PkgInfo={}                   # time and expect to work
+                if LastTag == 'Description':# some descriptions have blank lines
+                    PkgInfo['Description']=PkgInfo['Description'] + '\n' 
+                elif 'Package' in PkgInfo:
+                    PkgInfo['Package']=PkgInfo['Package'].replace(' ', '')
+                    RetVal = CommitPackage(PkgInfo)
+                    if RetVal != None:
+                        errors[PkgInfo['Package']]=RetVal
+                    PkgInfo={}
                 else:
-                    pass
-                    # idk what to do so I'll do nothing
-                    
+                    pass  # idk what to do with it so I'll do nothing
 db.close()
+print 'Loaded '+str(TotalPackages)+' Packages'
+if len(errors) != 0:
+    print "There were ",len(errors)," Errors during processing"
+    raw_input('Press Enter To View')
+    for PID in errors:
+        print 'Encounter an ', errors[PID], ' when processing ', PID
+print "Execution time: ", time.time() - start_time, "seconds"
