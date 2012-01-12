@@ -11,9 +11,8 @@ start_time = time.time()
 TotalPackages=0
 errors={}
 IDV={} # id:version
-duplicates=0
 path = '/var/lib/apt/lists'
-DBTable = 'AvaliblePacakges'
+DBTable = 'AvailablePacakges'
 DBFolder = '../Cache'
 DBPath = DBFolder+'/Master.sqlite'
 Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
@@ -29,7 +28,7 @@ print '####################################################'
 print '#                                          1/12/12 #'
 print '#           iMalic DataBase Rebuild Tool           #'
 print '#               Written By: Trcx528                #'
-print '#               <Trcx528@gmail.com>                #'  # I'm going to regret having done this..
+print '#               <Trcx528@gmail.com>                #'  # I'm going to regret having done this...
 print '#                                                  #'
 print '#  Check Out iNinjas.com for more iPhone utilites! #'
 print '#                                                  #'
@@ -127,8 +126,8 @@ db.close()
 print '\nProcessed '+str(TotalPackages)+' Packages'
 if len(errors) != 0:
     print "There were ",len(errors)," Errors during processing"
-    raw_input('Press Enter To View')
-    for PID in errors:
-        print 'Encounter an ', errors[PID], ' when processing ', PID
+    if raw_input('Press Enter To View,') == '':
+        for PID in errors:
+            print 'Encounter an ', errors[PID], ' when processing ', PID
 print "Execution time: ", time.time() - start_time, "Seconds"
 

@@ -2,7 +2,7 @@
 
 import sqlite3
 
-DBTable = 'AvaliblePacakges'
+DBTable = 'AvailablePacakges'
 DBFolder = '../Cache'
 DBPath = DBFolder+'/Master.sqlite'
 
