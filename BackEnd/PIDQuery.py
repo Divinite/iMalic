@@ -8,24 +8,25 @@ DBPath = DBFolder+'/Master.sqlite'
 
 db = sqlite3.connect(DBPath)
 c = db.cursor()
-tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'IconName',
+Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'Status',
       'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon', 'Depiction',
       'Filename', 'MD5sum', 'Size', 'Maintainer', 'Sponsor', 'SHA256',
       'Version', 'Architecture', 'Author', 'Priority', 'SHA1', 'Conflicts',
       'Replaces',  'Price', 'Essential', 'Bundle', 'Website', 'Suggests',
-      'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances']
+      'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances',
+      'Dev', 'Breaks', 'Repo' ]
 
 print 'Enter a Package ID to Look Up\nPress ^C to Exit'
 while True:
     PID=raw_input('\nPackage ID> ')
-    c.execute('SELECT '+','.join(tags)+' FROM '+DBTable+' WHERE '+DBTable+".Package='"+PID+"'")
+    c.execute('SELECT '+','.join(Tags)+' FROM '+DBTable+' WHERE '+DBTable+".Package='"+PID+"'")
     i = 0
     for row in c:
         i += 1
         print
         print 'Result '+str(i)
         o = 0
-        for tag in tags:
+        for tag in Tags:
             if str(row[o]) != '?':
                 print tag + ': ' + str(row[o])
             o += 1
