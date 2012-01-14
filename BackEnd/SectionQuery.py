@@ -8,7 +8,7 @@ DBPath = DBFolder+'/Master.sqlite'
 
 db = sqlite3.connect(DBPath)
 c = db.cursor()
-tags=['Name','Section', 'Version', 'Filename']
+tags=['Name','Section', 'Version', 'Filename', 'Publisher', 'Status', 'Contact', 'Source', 'Tag', 'Depends', 'Homepage', 'Icon',]
 
 print 'Enter a Section to Look Up\nPress ^C to Exit'
 while True:
