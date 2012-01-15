@@ -9,3 +9,7 @@
 
 -- Download stats for iNinjas Repo apps only
 	Data needed: again, a python programmer. need to be able to determine if it's an ininjas app and store the download stats in a XML file for easy parsing. Man i gotta learn python for this project) ;)
+
+-- Catigories… themes,hacktools,tweaks(Modder67)
+
+-- Dock and icons as nave bar (A3MIRAL)being worked on by Ginger.(Modder67)
