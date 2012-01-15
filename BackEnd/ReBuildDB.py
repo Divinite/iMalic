@@ -46,8 +46,8 @@ print 'to by an advanced user.\n'
 if not raw_input('Proceed? [y/N]: ') in [ 'y', 'Y', 'yes', 'YES' ]:
     exit()
 
-subprocess.Popen(['mkdir','-p',DBFolder], stdout=subprocess.PIPE)
-# pipe so not to print output
+subprocess.Popen(['mkdir','-p',DBFolder])
+subprocess.Popen(['touch',DBPath])
 
 db = sqlite3.connect(DBPath)
 c = db.cursor()
