@@ -24,7 +24,6 @@ if not 'Unknown' in Sections:
       'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances',
       'Dev', 'Breaks', 'Repo' ]
 
-
     Sections['Unknown']=0
     c.execute('SELECT Section From '+DBTable)
     for result in c:
@@ -34,7 +33,9 @@ if not 'Unknown' in Sections:
             Sections['Unknown'] += 1
         else: # result no in list
             Sections[str(result[0])] = 1
+    c.close()
+    db.close()
 
 for section in Sections:
-    print '<div id = "sections">' + section + ' (' + str(Sections[section])+ ') Packages </div>'
+    print '<div id = "sections"><a href="Section.py?Section='+section+'">' + section + ' (' + str(Sections[section])+ ') Packages</a></div>'
 print time.time()-StartTime
