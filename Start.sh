@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd BackEnd
+cd Content/scripts
 python ScriptServer.py
