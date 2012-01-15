@@ -28,4 +28,4 @@ for result in c:
         Sections[str(result[0]).capitalize()] = 1
 
 for section in Sections:
-    print section + ' has ' + str(Sections[section])+ ' Packages'
+    print '<div id = "sections">' + section + ' (' + str(Sections[section])+ ' Packages'
