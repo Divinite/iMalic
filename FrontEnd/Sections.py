@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sqlite3
+import shelve
 
 DBTable = 'AvailablePacakges'
 DBFolder = '../Cache'
@@ -17,15 +18,17 @@ Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'Status',
       'Dev', 'Breaks', 'Repo' ]
 
 
-Sections={'Unknown':0}
-c.execute('SELECT Section From '+DBTable)
-for result in c:
-    if  str(result[0]).capitalize() in Sections:
-        Sections[str(result[0]).capitalize()] += 1
-    elif str(result[0]) == '?':
-        Sections['Unknown'] += 1
-    else: # result no in list
-        Sections[str(result[0]).capitalize()] = 1
+Sections=shelve.open('../Cache/SectionsList', writeback=True)
+if not 'Unknown' in Sections:
+    Sections['Unknown']=0
+    c.execute('SELECT Section From '+DBTable)
+    for result in c:
+        if  str(result[0]) in Sections:
+            Sections[str(result[0])] += 1
+        elif str(result[0]) == '?':
+            Sections['Unknown'] += 1
+        else: # result no in list
+            Sections[str(result[0])] = 1
 
 for section in Sections:
-    print '<div id = "sections">' + section + ' (' + str(Sections[section])+ ' Packages'
+    print '<div id = "sections">' + section + ' (' + str(Sections[section])+ ') Packages </div>'
