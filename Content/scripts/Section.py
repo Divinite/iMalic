@@ -13,12 +13,13 @@ c = db.cursor()
 
 tags=['Name','Package']
 try:
-    PID=' WHERE '+DBTable+".Section='"+request['Section'][0]+"'"
+    t = (request['Section'][0],)
 except KeyError:
     print 'No Section Specified'
     print request
     exit()
-c.execute('SELECT '+",".join(tags)+' FROM '+DBTable+PID)
+query='SELECT '+",".join(tags)+' FROM '+DBTable+' WHERE '+DBTable+'.Section=?'
+c.execute(query,t)
 
 PackageList={}
 for row in c:

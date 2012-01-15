@@ -18,8 +18,10 @@ Tags=['Package', 'Name', 'Section', 'Description', 'Publisher', 'Status',
       'Provides', 'Languages', 'Support', 'More', 'Recommends', 'Enhances',
       'Dev', 'Breaks', 'Repo' ]
 
-PID=request['Package'][0]
-c.execute('SELECT '+','.join(Tags)+' FROM '+DBTable+' WHERE '+DBTable+".Package='"+PID+"'")
+
+t = (request['Package'][0],)
+query='SELECT '+','.join(Tags)+' FROM '+DBTable+' WHERE '+DBTable+".Package=?"
+c.execute(query, t)
 i = 0
 
 print '<html><body>'
