@@ -5,7 +5,7 @@ import time
 
 StartTime=time.time()
 DBTable = 'AvailablePacakges'
-DBFolder = '../Cache'
+DBFolder = 'Cache'
 DBPath = DBFolder+'/Master.sqlite'
 
 db = sqlite3.connect(DBPath)
@@ -30,7 +30,7 @@ for row in c:
         PackageList[str(row[1])]=str(row[1])
 
 for PID in PackageList:
-    print '<div id="PackageList"><a href="Package.py?Package='+PID+'">'+PackageList[PID]+'</a></div>'
+    print '<div id="PackageList"><a href="../scripts/Package.py?Package='+PID+'">'+PackageList[PID]+'</a></div>'
 c.close()
 db.close()
 

@@ -5,7 +5,7 @@ import shelve
 
 StartTime=time.time()
 
-Sections=shelve.open('../Cache/SectionsList', writeback=True)
+Sections=shelve.open('Cache/SectionsList', writeback=True)
 
 if not 'Unknown' in Sections:
     # bad practive not importing at the script's start
@@ -37,5 +37,5 @@ if not 'Unknown' in Sections:
     db.close()
 
 for section in Sections:
-    print '<div id = "sections"><a href="Section.py?Section='+section+'">' + section + ' (' + str(Sections[section])+ ') Packages</a></div>'
+    print '<div id = "sections"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(Sections[section])+ ') Packages</a></div>'
 print time.time()-StartTime
