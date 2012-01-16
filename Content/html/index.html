@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>iMalic</title>
+
+ <script src = "../javascript/jquery-1.6.4.min.js"></script>
+ <script src = "../javascript/jquery.mobile-1.0.min.js"></script>
+ <link rel = "stylesheet" href = "../css/jquery.mobile-1.0.min.css"></style>
+
+ <script type = "text/javascript">
+$(document).ready(function(){
+	$("#sources_content").load('../scripts/Sections.py');
+});
+</script>
+
+ <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+</head>
+
+<body>
+	<div id = "home" data-role="page">
+		<div id = "home_header" data-role="header">
+			<h1>iMalic -- Home</h1>
+		</div>
+		<div id = "home_content" data-role = "content">
+			<p>Test content</p>
+			<p><a href = "#sources">Sources</a></p>
+		</div>
+		<footer id = "home_footer" data-role="footer">
+		Brought to you by iNinjas Dev team located at <a href = "http://www.ininjas.com">iNinjas</a>
+		</footer>
+	</div>
+	<div id = "sources" data-role="page">
+		<header id = "sources_header" data-role="header">
+			<h1>iMalic -- Sources</h1>
+		</header>
+		<div id = "sources_content" data-role="content">
+		</div>
+	</div>
+</body>
+</html>

@@ -15,7 +15,7 @@ $ns = array
 $articles = array();
 
 // step 1: get the feed
-$blog_url = "HTTP://YOURSITE.COM/FEED.XML";
+$blog_url = "http://images.apple.com/main/rss/hotnews/hotnews.rss";
 
 $rawFeed = file_get_contents($blog_url);
 $xml = new SimpleXmlElement($rawFeed);
