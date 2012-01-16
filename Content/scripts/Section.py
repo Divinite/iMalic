@@ -5,7 +5,7 @@ import time
 
 StartTime=time.time()
 DBTable = 'AvailablePacakges'
-DBFolder = 'Cache'
+DBFolder = '../Cache'
 DBPath = DBFolder+'/Master.sqlite'
 
 db = sqlite3.connect(DBPath)

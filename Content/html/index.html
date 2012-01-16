@@ -8,7 +8,7 @@
  <link rel = "stylesheet" href = "../css/jquery.mobile-1.0.min.css"></style>
 
  <script type = "text/javascript">
- $("#sources").load('Sections.py');
+ $("#sources_content").load('../scripts/Section.py');
  </script>
 
  <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
@@ -16,22 +16,23 @@
 
 <body>
 	<div id = "home" data-role="page">
-		<header id = "home_header" data-role="header">
-			iMalic -- Home
-		</header>
-		<div data-role="content">
+		<div id = "home_header" data-role="header">
+			<h1>iMalic -- Home</h1>
+		</div>
+		<div id = "home_content" data-role = "content">
 			<p>Test content</p>
 			<p><a href = "#sources">Sources</a></p>
 		</div>
-		<footer data-role="footer">
+		<footer id = "home_footer" data-role="footer">
 		Brought to you by iNinjas Dev team located at <a href = "http://www.ininjas.com">iNinjas</a>
 		</footer>
 	</div>
 	<div id = "sources" data-role="page">
-		<header data-role="header">
-			iMalic -- Sources
+		<header id = "sources_header" data-role="header">
+			<h1>iMalic -- Sources</h1>
 		</header>
- Sources
- </div>
+		<div id = "sources_content" data-role="content">
+		</div>
+	</div>
 </body>
 </html>
