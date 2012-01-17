@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>iMalic</title>
+
+<!-- BEGIN loading all depends -->
+
+
+<!-- jQuery framework -->
+<script src="jquery/jquery.js"></script>
+
+<!-- Custom handler -->
+<script type="text/javascript" src="javascript/handler.js"></script>
+
+<!-- jQuery Mobile configuration edits -->
+<script src="jquery/jquery.mobile.conf.js"></script>
+
+<!-- jQuery Mobile Framework -->
+<script src="jquery/jquery.mobile.js"></script>
+
+<!-- jQuery Mobile CSS -->
+<link rel="stylesheet" href="jquery/jquery.mobile.css"></link>
+
+
+<!-- CSS for apps home page -->
+<link rel="stylesheet" href="css/home-apps.css"></link>
+
+<!-- Other various CSS rules -->
+<link rel="stylesheet" href="css/other.css"></link>
+
+<!-- Meta viewport -->
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+<!-- DONE! =) -->
+</head>
+
+<body>
+ <div id="sections" data-role="page">
+ 
+ <header data-role="header">
+  <h1>iMalic | Sources</h1>
+  <a href="#section_options" data-icon="gear"  class="ui-btn-right">Options</a>
+ </header>
+ 
+ <div data-role="content" id="sections_list">
+ <script type="text/javascript">
+loadSections();
+ </script>
+ </div>
+
+<!-- /#sections -->
+</div>
+
+<footer id="dock" class="bottom">
+
+ <div id="app-1-container">
+  <a href="javascript:alert('iPwn. How about you? :)')"><img id="app-1" src="images/apps/ipwn.png"></img>
+  </a>
+ </div>
+
+ <div id="app-2-container">
+  <a href="javascript:alert('Settings')">
+   <img id="app-2" src="images/apps/settings.png"></img>
+  </a>
+ </div>
+
+ <div id="app-3-container">
+  <a href="javascript:alert('Metasploit')"><img id="app-3" src="images/apps/metasploit.png"></img>
+  </a>
+ </div>
+
+ <div id="app-4-container">
+  <a href="javascript:alert('YouTube')"><img id="app-4" src="images/apps/youtube.png"></img>
+  </a>
+ </div>
+
+
+ <img id="bg" src = "images/apps/dock.png"></img>
+<!-- /footer -->
+</footer>

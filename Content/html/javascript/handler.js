@@ -4,17 +4,12 @@
 
 // Since all the jQuery requirements are already called, let's begin setting up our interface.
 
+// We are only defining functions that can be called by the page that needs them.
 
-
-// Before we execute the functions, let's make sure the document is ready to be manipluated. That would be embarassing
-$(document).ready(function(){
-// Ok, that's better. Now the DOM is ready to be maniplulated by the awesome powers of jQuery and jQuery Mobile :)
-	
-	// Load neccesities
-		// Load package sections
-		$('#sections_list').load('../scripts/Sections.py');
-// end :)
-});
+// Function to load sections list
+function loadSections(){
+ $('#sections_list').load('../scripts/Sections.py');
+}
 
 
 
