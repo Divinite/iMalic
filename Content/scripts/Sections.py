@@ -36,7 +36,23 @@ if not 'Unknown' in Sections:
     c.close()
     db.close()
 
-for section in Sections:
-    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(Sections[section])+ ') Packages</a></ul>'
-print time.time()-StartTime
 
+# alphabetize
+# for some reason they don't like shelves/dictionaries
+SortList=[]
+SortNums=[]
+for section in  Sections:
+    SortList.append(section)
+SortList.sort()
+for section in SortList:
+    SortNums.append(Sections[section]) # save numbers
+
+LastChar=''
+for section in SortList:
+    if section[0].upper() != LastChar:
+        LastChar=section[0].upper()
+        print 'New Section '+section[0].upper()
+    print '    '+section + ' Has ' + str(SortNums[SortList.index(section)])
+
+print time.time()-StartTime
+#    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]+ ') Packages</a></ul>'
