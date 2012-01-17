@@ -13,3 +13,5 @@
 -- Catigories… themes,hacktools,tweaks(Modder67)
 
 -- Dock and icons as nave bar (A3MIRAL)being worked on by Ginger.(Modder67)
+
+-- Contributors page
