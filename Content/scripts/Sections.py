@@ -37,5 +37,6 @@ if not 'Unknown' in Sections:
     db.close()
 
 for section in Sections:
-    print '<div id = "sections"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(Sections[section])+ ') Packages</a></div>'
+    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(Sections[section])+ ') Packages</a></ul>'
 print time.time()-StartTime
+
