@@ -1,59 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>iMalic</title>
+<title>iMalic</title>
 
- <!-- Load jQuery framework -->
- <script src = "../jQuery/jQuery.js"></script>
- 
- <!-- Load jQuery Mobile Framework changes -->
- <script src = "../jQuery/jQuery-mobile-conf.js"></script>
+<!-- BEGIN loading all depends -->
 
- <!-- Load jQuery mobile framework -->
- <script src = "../jQuery/jquery.mobile-1.0.min.js"></script>
 
- <!-- Load jQuery mobile styles -->
- <link rel = "stylesheet" href = "../jQuery/jquery.mobile-1.0.min.css"></link>
- 
- <!-- Load custom handler -->
- <script type = "text/javascript" src = "../javascript/handler.js"></script>
- 
- <!-- Load CSS for home page apps -->
- <link rel = 'stylesheet' href = '../css/home-apps.css'></link>
- 
+<!-- jQuery framework -->
+<script src="jquery/jquery.js"></script>
 
- <!-- Meta Tag for apple devices to make them page width -->
- <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<!-- jQuery Mobile configuration edits -->
+<script src="jquery/jquery.mobile.conf.js"></script>
 
-<!-- End head -->
+<!-- jQuery Mobile Framework -->
+<script src="jquery/jquery.mobile.js"></script>
+
+<!-- jQuery Mobile CSS -->
+<link rel="stylesheet" href="jquery/jquery.mobile.css"></link>
+
+
+<!-- Custom handler -->
+<script type="text/javascript" src="javascript/handler.js"></script>
+
+<!-- CSS for apps home page -->
+<link rel="stylesheet" href="css/home-apps.css"></link>
+
+<!-- Other various CSS rules -->
+<link rel="stylesheet" href="css/other.css"></link>
+
+<!-- Meta viewport -->
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+<!-- DONE! =) -->
 </head>
-
 <body>
-	<!-- Div container for the home page -->
-	<div id = "home" data-role="page">
-		<header data-role="header">
-			<h1>iMalic | Home</h1>
-		</header>
-		<div id = "home_content" data-role = "content">
-			<h1 id = "home_title">Welcome to iMalic</h1>
-			<div id = 'app_screen' class = 'ui-grid-c'>
-				<div id = 'support' class = 'ui-block-a'><a href = "#help"><img class = "app_icons" src = "../images/home-page/support.jpg"></a><div class = 'app_names'>Support</div></div>
-				<div id = 'settings' class = 'ui-block-b'><a href = "#settings"><img class = "app_icons" src = "../images/home-page/settings.png"></a><div class = 'app_names'>Settings</div></div>
-				<div id = 'youtube' class = 'ui-block-c'><a href = "http://youtube.com"><img class = "app_icons" src = "../images/home-page/YouTube.png"></a><div class = 'app_names'>YouTube</div></div>
-				<div id = 'twitter' class = 'ui-block-d'><a href = 'http://twitter.com/iMalicProject'><img class = 'app_icons' src = '../images/home-page/twitter.png'></a><div class = 'app_names'>Twitter</div><div>
-			  </div>
-		</div>
-	</div>
+<div id="home" data-role="page">
+
+ <header data-role="header">
+ <h1>iMalic | Home</h1>
+ <!-- /#home header -->
+ </header>
+
+ <div data-role="content">
+ Test content
+ <!-- /#home content -->
+ </div>
 
 
-	<div id = "sections" data-role="page">
-		<header data-role="header">
-			<h1>iMalic | Sections</h1>
-		</header>
-		<div id = "sections_content" data-role="content">
-			<!--Automatically added by jQuery loading the sections-->
-		</div>
-	</div>
-	<footer><a href = "#sections">Sections</a></footer>
+<!-- /#home page -->
+</div>
+
+
+
+
+
+
+
+
+
+<footer id="dock" class="bottom">
+
+ <div id="app-1-container">
+  <a href="javascript:alert('iPwn. How about you? :)')"><img id="app-1" src="images/apps/ipwn.png"></img>
+  </a>
+ </div>
+
+ <div id="app-2-container">
+  <a href="javascript:alert('Settings')">
+   <img id="app-2" src="images/apps/settings.png"></img>
+  </a>
+ </div>
+
+ <div id="app-3-container">
+  <a href="javascript:alert('Metasploit')"><img id="app-3" src="images/apps/metasploit.png"></img>
+  </a>
+ </div>
+
+ <div id="app-4-container">
+  <a href="javascript:alert('YouTube')"><img id="app-4" src="images/apps/youtube.png"></img>
+  </a>
+ </div>
+
+
+ <img id="bg" src = "images/apps/dock.png"></img>
+<!-- /footer -->
+</footer>
 </body>
 </html>
+
+
