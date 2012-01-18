@@ -1,0 +1,138 @@
+<style type="text/css">
+/* CSS for the dock :) */
+
+.bottom {
+ position: fixed;
+ bottom: 0;
+ padding: 0;
+ margin: 0;
+}
+#dock {
+ position: fixed;
+ bottom: 0;
+ width: 320px;
+ padding: 0;
+ margin: 0;
+ z-index: 100;
+}
+
+#dock img#bg {
+ width: 320px;
+ position: absolute;
+ bottom: 0;
+ left: 0;
+}
+
+#app-1-container {
+ position: absolute;
+ bottom: 10px;
+ left: 5px;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0;
+}
+#app-1 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ Z-index: 1337;
+}
+#app-2-container {
+ position: absolute;
+ bottom: 10px;
+ left: 83px;;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0; 
+}
+#app-2 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ z-index: 1337;
+}
+#app-3-container {
+ position: absolute;
+ bottom: 10px;
+ left: 161px;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0;
+}
+#app-3 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ z-index: 1337;
+}
+#app-4-container {
+ position: absolute;
+ bottom: 10px;
+ right: 5px;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0;
+}
+#app-4 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ z-index: 1337;
+}
+</style>
+<script type="text/javascript">
+
+var url=window.location.pathname;
+var filename=url.substring(url.lastIndexOf('/')+1);
+var app1="home.html";
+var app2="";
+var app3="";
+var app4="";
+
+if (filename == app1){
+ document.getElementById('app-1').setAttribute("src","../images/ipwn.png");
+}
+
+</script>
+<footer id="dock" class="bottom">
+ <div id="app-1-container">
+  <a href="home.html">
+   <img id="app-1"></img>
+  </a>
+ </div>
+
+ <div id="app-2-container">
+  <a href="javascript:alert('Settings')">
+   <img id="app-2"></img>
+  </a>
+ </div>
+
+ <div id="app-3-container">
+  <a href="javascript:alert('Metasploit')"><img id="app-3"></img>
+  </a>
+ </div>
+
+ <div id="app-4-container">
+  <a href="javascript:alert('YouTube')"><img id="app-4"></img>
+  </a>
+ </div>
+
+
+ <img id="bg" src = "../images/dock.png"></img>
+</footer>
