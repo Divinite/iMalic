@@ -96,43 +96,53 @@
  z-index: 1337;
 }
 </style>
-<script type="text/javascript">
+<script type="text/javascript"> 
 
-var url=window.location.pathname;
-var filename=url.substring(url.lastIndexOf('/')+1);
+var parsedUrl=$.mobile.path.parseUrl(window.location.href);
+var filename=parsedUrl.filename;
+
 var app1="home.html";
-var app2="";
-var app3="";
-var app4="";
+var app2="packages.html";
+var app3="sections.html";
+var app4="sources.html";
 
 if (filename == app1){
- document.getElementById('app-1').setAttribute("src","../images/ipwn.png");
+ document.getElementById("app-1").setAttribute("src","../images/home-active.png");
+ document.getElementById("app-1-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-1-menu.html', { transition: 'slideup'} );");
+} else if (filenane == app2){
+ document.getElementById('app-2').setAttribute("src","../images/packages-active.png");
+ document.getElementById("app-2-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-2-menu.html', { transition: 'slideup'} );");
+} else if (filenane == app3){
+ document.getElementById('app-2').setAttribute("src","../images/sections-active.png");
+ document.getElementById("app-3-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-3-menu.html', { transition: 'slideup'} );");
+} else if (filenane == app4){
+ document.getElementById('app-2').setAttribute("src","../images/sources-active.png");
+ document.getElementById("app-4-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-4-menu.html', { transition: 'slideup'} );");
 }
-
 </script>
 <footer id="dock" class="bottom">
  <div id="app-1-container">
-  <a href="home.html">
-   <img id="app-1"></img>
+  <a id="app-1-link" href="javascript:alert('Home')">
+   <img id="app-1" src="../images/home-off.png"></img>
   </a>
  </div>
 
  <div id="app-2-container">
-  <a href="javascript:alert('Settings')">
-   <img id="app-2"></img>
+  <a id="app-2-link" href="javascript:alert('Settings')">
+   <img id="app-2" src="../images/packages-off.png"></img>
   </a>
  </div>
 
  <div id="app-3-container">
-  <a href="javascript:alert('Metasploit')"><img id="app-3"></img>
+  <a id="app-3-link" href="javascript:alert('Metasploit')"><img id="app-3" src="../images/sections-off.png"></img>
   </a>
  </div>
 
  <div id="app-4-container">
-  <a href="javascript:alert('YouTube')"><img id="app-4"></img>
+  <a id="app-4-link" href="javascript:alert('YouTube')"><img id="app-4" src="../images/sources-off.png"></img>
   </a>
  </div>
 
 
- <img id="bg" src = "../images/dock.png"></img>
+ <img id="bg" src = "../images/dock-new.png"></img>
 </footer>

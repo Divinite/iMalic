@@ -10,9 +10,5 @@ function loadSections(){
 }
 
 function loadDock(){
- $('body').load(dock);
-}
-
-function test(){
- alert('test');
+ $('#contain-the-dock').load(dock);
 }
