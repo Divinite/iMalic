@@ -96,10 +96,16 @@
  z-index: 1337;
 }
 </style>
-<script type="text/javascript"> 
+<script type="text/javascript">
+
+function showMenu(){
+$('#menu').toggle();
+alert('yup');
+}
 
 var parsedUrl=$.mobile.path.parseUrl(window.location.href);
 var filename=parsedUrl.filename;
+
 
 var app1="home.html";
 var app2="packages.html";
@@ -108,38 +114,40 @@ var app4="sources.html";
 
 if (filename == app1){
  document.getElementById("app-1").setAttribute("src","../images/home-active.png");
- document.getElementById("app-1-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-1-menu.html', { transition: 'slideup'} );");
+ document.getElementById("app-1-link").setAttribute("href","javascript:showMenu();");
 } else if (filenane == app2){
  document.getElementById('app-2').setAttribute("src","../images/packages-active.png");
- document.getElementById("app-2-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-2-menu.html', { transition: 'slideup'} );");
+ document.getElementById("app-2-link").setAttribute("href","javascript:showMenu();");
 } else if (filenane == app3){
  document.getElementById('app-2').setAttribute("src","../images/sections-active.png");
- document.getElementById("app-3-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-3-menu.html', { transition: 'slideup'} );");
+ document.getElementById("app-3-link").setAttribute("href","javascript:showMenu();");
 } else if (filenane == app4){
  document.getElementById('app-2').setAttribute("src","../images/sources-active.png");
- document.getElementById("app-4-link").setAttribute("href","javascript:$.mobile.changePage('../includes/app-4-menu.html', { transition: 'slideup'} );");
+ document.getElementById("app-4-link").setAttribute("href","javascript:showMenu();");
 }
 </script>
 <footer id="dock" class="bottom">
  <div id="app-1-container">
-  <a id="app-1-link" href="javascript:alert('Home')">
+  <a id="app-1-link" href="home.html">
    <img id="app-1" src="../images/home-off.png"></img>
   </a>
  </div>
 
  <div id="app-2-container">
-  <a id="app-2-link" href="javascript:alert('Settings')">
+  <a id="app-2-link" href="packages.html">
    <img id="app-2" src="../images/packages-off.png"></img>
   </a>
  </div>
 
  <div id="app-3-container">
-  <a id="app-3-link" href="javascript:alert('Metasploit')"><img id="app-3" src="../images/sections-off.png"></img>
+  <a id="app-3-link" href="sections.html">
+   <img id="app-3" src="../images/sections-off.png"></img>
   </a>
  </div>
 
  <div id="app-4-container">
-  <a id="app-4-link" href="javascript:alert('YouTube')"><img id="app-4" src="../images/sources-off.png"></img>
+  <a id="app-4-link" href="sources.html">
+   <img id="app-4" src="../images/sources-off.png"></img>
   </a>
  </div>
 
