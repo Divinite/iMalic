@@ -17,7 +17,6 @@
 
 <body>
 <center>
-<img src="icon-Retina.png"></img>
 </center>
 <div id="topbar">
 	<div id="title">iMalic | Installer</div>
@@ -27,19 +26,188 @@
 	<div id="rightnav">
 		<a href="Settings.html" class="noeffect">Settings</a></div>
 </div>
+
+<center>
+<h4>iMalic installer</h4>
+		<img src="ad1.png">
+<h3>Welcome to iMalic</h3>
+<h4>Developed and maintained by ininjas dev-team.</h4>
+		</a></center>
+		
+		
 <div id="content">
-	<span class="graytitle">Quick links</span>
+	<span class="graytitle"></span>
 	<ul class="pageitem">
-		<li class="textbox"><span class="header"></span><p></p>
+		<li class="textbox"><span class="header"></span><p>Some Quick links</p>
 		</li>
 		<li class="menu"><a href="QuickMenu.html">
 		<img alt="list" src="thumbs/plugin.png" /><span class="name">Quick Menu</span><span class="arrow"></span></a></li>
-	</ul>
-	<p><move>Some of iMalics news can go here</move>
-	</ul>
+		<li class="menu"><a href="Developers.html">
+		<img alt="list" src="thumbs/start.png" /><span class="name">Developers</span><span class="arrow"></span></a></li>
+		<li class="menu"><a href="topten.html">
+		<img alt="list" src="thumbs/itunes.png" /><span class="name">Top 10 packages</span><span class="arrow"></span></a></li>
+	</ul>	
 </div>
+<style type="text/css">
+/* CSS for the dock :) */
 
+.bottom {
+ position: fixed;
+ bottom: 0;
+ padding: 0;
+ margin: 0;
+}
+#dock {
+ position: fixed;
+ bottom: 0;
+ width: 320px;
+ padding: 0;
+ margin: 0;
+ z-index: 100;
+}
+
+#dock img#bg {
+ width: 320px;
+ position: absolute;
+ bottom: 0;
+ left: 0;
+}
+
+#app-1-container {
+ position: absolute;
+ bottom: 10px;
+ left: 5px;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0;
+}
+#app-1 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ Z-index: 1337;
+}
+#app-2-container {
+ position: absolute;
+ bottom: 10px;
+ left: 83px;;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0; 
+}
+#app-2 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ z-index: 1337;
+}
+#app-3-container {
+ position: absolute;
+ bottom: 10px;
+ left: 161px;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0;
+}
+#app-3 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ z-index: 1337;
+}
+#app-4-container {
+ position: absolute;
+ bottom: 10px;
+ right: 5px;
+ width: 78px;
+ z-index: 1337;
+ padding: 0;
+ margin: 0;
+}
+#app-4 {
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ bottom: 15px;
+ width: 57px;
+ height: 57px;
+ z-index: 1337;
+}
+</style>
+<script type="text/javascript">
+
+function showMenu(){
+$('#menu').toggle();
+alert('yup');
+}
+
+var parsedUrl=$.mobile.path.parseUrl(window.location.href);
+var filename=parsedUrl.filename;
+
+
+var app1="home.html";
+var app2="packages.html";
+var app3="sections.html";
+var app4="sources.html";
+
+if (filename == app1){
+ document.getElementById("app-1").setAttribute("src","../images/home-active.png");
+ document.getElementById("app-1-link").setAttribute("href","javascript:showMenu();");
+} else if (filenane == app2){
+ document.getElementById('app-2').setAttribute("src","../images/packages-active.png");
+ document.getElementById("app-2-link").setAttribute("href","javascript:showMenu();");
+} else if (filenane == app3){
+ document.getElementById('app-2').setAttribute("src","../images/sections-active.png");
+ document.getElementById("app-3-link").setAttribute("href","javascript:showMenu();");
+} else if (filenane == app4){
+ document.getElementById('app-2').setAttribute("src","../images/sources-active.png");
+ document.getElementById("app-4-link").setAttribute("href","javascript:showMenu();");
+}
+</script>
+<footer id="dock" class="bottom">
+ <div id="app-1-container">
+  <a id="app-1-link" href="index.html">
+   <img id="app-1" src="icon_home.png"></img>
+  </a>
+ </div>
+
+ <div id="app-2-container">
+  <a id="app-2-link" href="packages.html">
+   <img id="app-2" src="icon_folder.png"></img>
+  </a>
+ </div>
+
+ <div id="app-3-container">
+  <a id="app-3-link" href="sections.html">
+   <img id="app-3" src="icon_list_bullets.png"></img>
+  </a>
+ </div>
+
+ <div id="app-4-container">
+  <a id="app-4-link" href="settings.html">
+   <img id="app-4" src="icon_manage.png"></img>
+  </a>
+ </div>
+
+
+ <img id="bg" src = "footer.png"></img>
+</footer>
+</style>
+</head>
+
+<body>
 
 </body>
-
 </html>
