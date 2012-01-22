@@ -10,20 +10,21 @@
 #dock {
  position: fixed;
  bottom: 0;
+ left: 0;
  width: 320px;
  padding: 0;
  margin: 0;
  z-index: 100;
 }
 
-#dock img#bg {
+#dock img#dock-bg {
  width: 320px;
  position: absolute;
  bottom: 0;
  left: 0;
 }
 
-#app-1-container {
+#home-container {
  position: absolute;
  bottom: 10px;
  left: 5px;
@@ -32,7 +33,7 @@
  padding: 0;
  margin: 0;
 }
-#app-1 {
+#home-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
@@ -41,7 +42,7 @@
  height: 57px;
  Z-index: 1337;
 }
-#app-2-container {
+#packages-container {
  position: absolute;
  bottom: 10px;
  left: 83px;;
@@ -50,7 +51,7 @@
  padding: 0;
  margin: 0; 
 }
-#app-2 {
+#packages-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
@@ -59,7 +60,7 @@
  height: 57px;
  z-index: 1337;
 }
-#app-3-container {
+#sections-container {
  position: absolute;
  bottom: 10px;
  left: 161px;
@@ -68,7 +69,7 @@
  padding: 0;
  margin: 0;
 }
-#app-3 {
+#sections-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
@@ -77,7 +78,7 @@
  height: 57px;
  z-index: 1337;
 }
-#app-4-container {
+#sources-container {
  position: absolute;
  bottom: 10px;
  right: 5px;
@@ -86,7 +87,7 @@
  padding: 0;
  margin: 0;
 }
-#app-4 {
+#sources-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
@@ -97,60 +98,55 @@
 }
 </style>
 <script type="text/javascript">
-
-function showMenu(){
-$('#menu').toggle();
-alert('yup');
-}
-
-var parsedUrl=$.mobile.path.parseUrl(window.location.href);
-var filename=parsedUrl.filename;
-
-
-var app1="home.html";
-var app2="packages.html";
-var app3="sections.html";
-var app4="sources.html";
-
-if (filename == app1){
- document.getElementById("app-1").setAttribute("src","../images/home-active.png");
- document.getElementById("app-1-link").setAttribute("href","javascript:showMenu();");
-} else if (filenane == app2){
- document.getElementById('app-2').setAttribute("src","../images/packages-active.png");
- document.getElementById("app-2-link").setAttribute("href","javascript:showMenu();");
-} else if (filenane == app3){
- document.getElementById('app-2').setAttribute("src","../images/sections-active.png");
- document.getElementById("app-3-link").setAttribute("href","javascript:showMenu();");
-} else if (filenane == app4){
- document.getElementById('app-2').setAttribute("src","../images/sources-active.png");
- document.getElementById("app-4-link").setAttribute("href","javascript:showMenu();");
+// List all possible tab pages
+var dockTabs=new Array('home','packages','sections','sources');
+// parse the url using jquery mobile
+var address=$.mobile.path.parseUrl(window.location.href);
+// get the page (after a # in the url) fromt the parsed url
+var parsedPage=address.hash;	// chop off the # from the hash
+var page=parsedPage.substring(1);
+// get the file name
+var filename=address.filename;
+if (filename == 'home.html'){
+// the file name is home.html
+	if (!page){
+	page='home';
+	}
+	for (i=0; i<dockTabs.length; i++){
+		if (dockTabs[i] == page){
+			$("#" + page + "-img").attr("src","../images/" + page + "-active.png");
+		}
+	}
+} else {
+		alert("The page " + filename + ".html#" + page + " is unrecognized");
+		$('body').load('404.html');
 }
 </script>
 <footer id="dock" class="bottom">
- <div id="app-1-container">
-  <a id="app-1-link" href="home.html">
-   <img id="app-1" src="../images/home-off.png"></img>
+ <div id="home-container">
+  <a id="home-link" href="#home">
+   <img id="home-img" src="../images/home-off.png"></img>
   </a>
  </div>
 
- <div id="app-2-container">
-  <a id="app-2-link" href="packages.html">
-   <img id="app-2" src="../images/packages-off.png"></img>
+ <div id="packages-container">
+  <a id="packages-link" href="#packages">
+   <img id="packages-img" src="../images/packages-off.png"></img>
   </a>
  </div>
 
- <div id="app-3-container">
-  <a id="app-3-link" href="sections.html">
-   <img id="app-3" src="../images/sections-off.png"></img>
+ <div id="sections-container">
+  <a id="sections-link" href="#sections">
+   <img id="sections-img" src="../images/sections-off.png"></img>
   </a>
  </div>
 
- <div id="app-4-container">
-  <a id="app-4-link" href="sources.html">
-   <img id="app-4" src="../images/sources-off.png"></img>
+ <div id="sources-container">
+  <a id="sources-link" href="#sources">
+   <img id="sources-img" src="../images/sources-off.png"></img>
   </a>
  </div>
 
 
- <img id="bg" src = "../images/dock-new.png"></img>
+ <img id="dock-bg" src = "../images/dock-new.png"></img>
 </footer>

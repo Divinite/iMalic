@@ -3,3 +3,4 @@ $(document).bind("mobileinit", function(){
 });
 $.mobile.fixedToolbars
    .show(true);
+
