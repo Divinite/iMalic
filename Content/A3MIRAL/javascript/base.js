@@ -4,8 +4,16 @@
 
 
 
-// This function fixes the dock's current tab based on the active #page or if no page by the URL
-
-$('div').live('pageshow',function(){
-	$('#contain-dock').load("../includes/dock.html");
+$('#home').live('pageshow',function(){
+ $('#contain-dock').load("../includes/dock-home.html");
 });
+$('#sections').live('pageshow',function(){
+ $('#contain-dock').load("../includes/dock-sections.html");
+});
+$('#packages').live('pageshow',function(){
+ $('#contain-dock').load("../includes/dock-packages.html");
+});
+$('#sources').live('pageshow',function(){
+ $('#contain-dock').load("../includes/dock-sources.html");
+});
+$.mobile.loadPage('../includes/menu.html', { showLoadMsg: false } );

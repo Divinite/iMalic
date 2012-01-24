@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="../css/dock.css" />
+<script type="text/javascript">
+$.mobile.loadPage('sections.html', { showLoadMsg: false } );
+$.mobile.loadPage('packages.html', { showLoadMsg: false } );
+$.mobile.loadPage('sources.html', { showLoadMsg: false } );
+$.mobile.loadPage('../includes/menu-home.html', { showLoadMsg: false } );
+</script>
+<script type="text/javascript">
+</script>
+<footer id="dock" class="bottom">
+ <div id="home-container">
+  <a id="home-link" href="../includes/menu.html" data-rel="dialog" data-transition="slideup">
+   <img id="home-img" src="../images/home-active.png"></img>
+  </a>
+ </div>
+
+ <div id="packages-container">
+  <a id="packages-link" href="packages.html" data-transition="slide">
+   <img id="packages-img" src="../images/packages-off.png"></img>
+  </a>
+ </div>
+
+ <div id="sections-container">
+  <a id="sections-link" href="sections.html" data-transition="slide">
+   <img id="sections-img" src="../images/sections-off.png"></img>
+  </a>
+ </div>
+
+ <div id="sources-container">
+  <a id="sources-link" href="sources.html" data-transition="slide">
+   <img id="sources-img" src="../images/sources-off.png"></img>
+  </a>
+ </div>
+
+
+ <img id="dock-bg" src = "../images/dock-new.png"></img>
+</footer>
+<div id="menu">
+</div>
