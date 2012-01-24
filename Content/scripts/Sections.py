@@ -48,11 +48,12 @@ for section in SortList:
     SortNums.append(Sections[section]) # save numbers
 
 LastChar=''
+print '<ul data-role="listview">'
 for section in SortList:
     if section[0].upper() != LastChar:
         LastChar=section[0].upper()
-        print '<br><b>New Section '+section[0].upper()+'</b>'
-    print '<br><a href="/scripts/Section.py?Section='+section+'">' + section + ' Has <i>' + str(SortNums[SortList.index(section)]) + '</i> Packages</a>'
-
+        print '<li data-role="list-divider>'+section[0].upper()+'</li>'
+    print '<li><a href="/scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]) + ')</a></li>'
+print '</ul>'
 print "<br><br><h7>Page Generated in",time.time()-StartTime,"Seconds</h7>"
 #    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]+ ') Packages</a></ul>'
