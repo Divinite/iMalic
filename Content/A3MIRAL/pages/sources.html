@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <head>
-
+<title>iMalic</title>
 <!-- Includes -->
 <!-- jQuery -->
 <script src="../jquery/jquery.min.js"></script>
-<!-- jQuery mobile conf edits -->
+<!-- jQuery mobile conf overwrites -->
 <script src="../jquery/jquery.mobile.conf.js"></script>
+<!-- Custom Handler -->
+<script src="../javascript/base.js"></script>
 <!-- jQuery mobile -->
 <script src="../jquery/jquery.mobile.js"></script>
 <!--jQuery mobile CSS -->
 <link rel="stylesheet" href="../jquery/jquery.mobile.css" />
-<!-- Custom Handler -->
-<script src="../javascript/base.js"></script>
 <!-- Done -->
 
 
@@ -20,7 +20,7 @@
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
 
 <!-- Web app capable (testing in full screen purposes) -->
-<meta content="yes" name="apple-mobileweb-app-capable" />
+<meta name="apple-mobileweb-app-capable" content="yes" />
 
 <!-- Other -->
 <!-- iPod homescreen logo -->
@@ -29,22 +29,15 @@
 </script>
 </head>
 <body>
-<div data-role="page" id="home">
- <header data-role="header">
-  <h1>iMalic</h1>
- </header>
-<div data-role="content">
- Home test
- <a href="#sections">Sections</a>
+<div data-role="page" id="sources" data-dom-cache="true">
+        <header data-role="header">
+                <h1>Sources</h1>
+        </header>
+        <div data-role="content">
+                Sources
+        </div>
 </div>
-</div>
-<div data-role="page" id="sections">
-<header data-role="header">
-  <h1>iMalic</h1>
- </header>
-<div data-role="content">
-Sections test
-</div>
-</div>
+
+<div id="contain-dock"></div>
 </body>
 </html>

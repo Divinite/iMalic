@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="../jquery/jquery.mobile.css" />
 <!-- Done -->
 
+
+
 <!-- Meta tags -->
 <!-- ViewPort -->
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
@@ -28,22 +30,18 @@
 </script>
 </head>
 <body>
-
-<div data-role="page" id="home" data-dom-cache="true">
-	<header data-role="header">
-		<h1>iMalic</h1>
-	</header>
-	<div data-role="content">
-		Home<a href="#test">Test</a>
-	</div>
-</div>
-<div data-role="page" id="test" data-add-back-btn="true">
- <header data-role="header">
-  <h1>Test</h1>
- </header>
- <div data-role="content">
-   Test
- </div>
+<div data-role="page" id="sections" data-dom-cache="true">
+        <header data-role="header">
+                <h1>Sections</h1>
+        </header>
+        <div data-role="content">
+                <h1>Sections</h1>
+                <div id="sections-list">
+                <!--<script type="text/javascript">
+                $('#sections-list').load('../../scripts/Sections.py');
+                </script>-->
+                </div>
+        </div>
 </div>
 
 <div id="contain-dock"></div>
