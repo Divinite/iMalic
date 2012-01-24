@@ -1,0 +1,7 @@
+BackEnd:
+- Add dependancy resolution
+- Add fetching of packages for installation
+- Add updating of sources
+- Add source listing/adding/removal
+
+FrontEnd: 

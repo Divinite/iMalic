@@ -5,7 +5,7 @@ import shelve
 
 StartTime=time.time()
 
-Sections=shelve.open('../Cache/SectionsList', writeback=True)
+Sections=shelve.open('Cache/SectionsList', writeback=True)
 
 if not 'Unknown' in Sections:
     # bad practive not importing at the script's start
@@ -51,8 +51,8 @@ LastChar=''
 for section in SortList:
     if section[0].upper() != LastChar:
         LastChar=section[0].upper()
-        print 'New Section '+section[0].upper()
-    print '    '+section + ' Has ' + str(SortNums[SortList.index(section)])
+        print '<br><b>New Section '+section[0].upper()+'</b>'
+    print '<br><a href="/scripts/Section.py?Section='+section+'">' + section + ' Has <i>' + str(SortNums[SortList.index(section)]) + '</i> Packages</a>'
 
-print time.time()-StartTime
+print "<br><br><h7>Page Generated in",time.time()-StartTime,"Seconds</h7>"
 #    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]+ ') Packages</a></ul>'
