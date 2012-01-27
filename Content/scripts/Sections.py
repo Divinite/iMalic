@@ -7,6 +7,11 @@ StartTime=time.time()
 
 Sections=shelve.open('Cache/SectionsList', writeback=True)
 
+# Going to make set the html we need for the sections page, otherwise it can't be formatted correctly
+head = '<!DOCTYPE html><head><title>iMalic</title><script src="../jquery/jquery.min.js"></script><script src="../jquery/jquery.mobile.conf.js"></script><script src="../javascript/base.js"></script><script src="../jquery/jquery.mobile.js"></script><link rel="stylesheet" href="../jquery/jquery.mobile.css" /><meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" /><meta name="apple-mobileweb-app-capable" content="yes" /><link rel="apple-touch-icon" href="image.png" /></head>'
+body1 = '<body><div data-role="page" id="sections" data-dom-cache="true"><header data-role="header"><h1>Sections</h1></header><div data-role="content"><h1>Sections</h1>'
+body2 = '</div></div><div id="contain-dock"></div></body></html>'
+
 if not 'Unknown' in Sections:
     # bad practive not importing at the script's start
     # but this really helps with perfomance
@@ -48,11 +53,10 @@ for section in SortList:
     SortNums.append(Sections[section]) # save numbers
 
 LastChar=''
-print '<ul data-role="listview">'
+print head + body1
 for section in SortList:
     if section[0].upper() != LastChar:
         LastChar=section[0].upper()
-        print 'Div divider ' + section[0].upper() + '<br />'
-    print '<a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]) + ')</a><br />'
-print "<br><br><h7>Page Generated in",time.time()-StartTime,"Seconds</h7>"
-#    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]+ ') Packages</a></ul>'
+        print '<ul data-role="listview" data-inset="true" data-theme="g">' + '<li data-role="list-divider">' + section[0].upper() + '</li>'
+    print '<li><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]) + ')</a></li>'
+print '</ul>' + "<br><br><h7>Page Generated in",time.time()-StartTime,"Seconds</h7>" + body2
