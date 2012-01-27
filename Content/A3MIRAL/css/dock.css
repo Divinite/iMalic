@@ -1,5 +1,8 @@
 /* CSS for the dock :) */
 
+.text-left{
+ text-align: left;
+}
 .bottom {
  position: fixed;
  bottom: 0;
@@ -9,20 +12,22 @@
 #dock {
  position: fixed;
  bottom: 0;
+ left: 0;
  width: 320px;
  padding: 0;
  margin: 0;
  z-index: 100;
 }
 
-#dock img#bg {
+#dock img#dock-bg {
  width: 320px;
  position: absolute;
  bottom: 0;
  left: 0;
+ overflow: hidden;
 }
 
-#app-1-container {
+#home-container {
  position: absolute;
  bottom: 10px;
  left: 5px;
@@ -30,35 +35,36 @@
  z-index: 1337;
  padding: 0;
  margin: 0;
+ text-align: center;
 }
-#app-1 {
+#home-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
- bottom: 15px;
  width: 57px;
  height: 57px;
  Z-index: 1337;
+ -webkit-box-shadow: -3px 4px 5px black;
 }
-#app-2-container {
+#packages-container {
  position: absolute;
  bottom: 10px;
- left: 83px;;
+ left: 83px;
  width: 78px;
  z-index: 1337;
  padding: 0;
  margin: 0; 
 }
-#app-2 {
+#packages-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
- bottom: 15px;
  width: 57px;
  height: 57px;
  z-index: 1337;
+ -webkit-box-shadow: -3px 4px 5px black;
 }
-#app-3-container {
+#sections-container {
  position: absolute;
  bottom: 10px;
  left: 161px;
@@ -67,16 +73,16 @@
  padding: 0;
  margin: 0;
 }
-#app-3 {
+#sections-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
- bottom: 15px;
  width: 57px;
  height: 57px;
  z-index: 1337;
+ -webkit-box-shadow: -3px 4px 5px black;
 }
-#app-4-container {
+#sources-container {
  position: absolute;
  bottom: 10px;
  right: 5px;
@@ -85,12 +91,26 @@
  padding: 0;
  margin: 0;
 }
-#app-4 {
+#sources-img {
  display: block;
  margin-left: auto;
  margin-right: auto;
- bottom: 15px;
  width: 57px;
  height: 57px;
  z-index: 1337;
+ -webkit-box-shadow: -3px 4px 5px black;
+}
+
+#menu {
+ display: none;
+ z-index: 100;
+ position: fixed;
+ top: 5px;
+ left: 10px;
+ right: 10px;
+ bottom: 75px;
+ background-color: black;
+ color: white;
+ -webkit-border-radius: 25px;
+ text-align: center;
 }

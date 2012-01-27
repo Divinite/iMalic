@@ -34,4 +34,4 @@ for PID in PackageList:
 c.close()
 db.close()
 
-print time.time()-StartTime
+print '<br><br><h7>Page Generated In',time.time()-StartTime,'</h7>'
