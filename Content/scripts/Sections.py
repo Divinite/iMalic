@@ -52,8 +52,7 @@ print '<ul data-role="listview">'
 for section in SortList:
     if section[0].upper() != LastChar:
         LastChar=section[0].upper()
-        print '<li data-role="list-divider>'+section[0].upper()+'</li>'
-    print '<li><a href="/scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]) + ')</a></li>'
-print '</ul>'
+        print 'Div divider ' + section[0].upper() + '<br />'
+    print '<a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]) + ')</a><br />'
 print "<br><br><h7>Page Generated in",time.time()-StartTime,"Seconds</h7>"
 #    print '<ul data-role="listview" data-theme="g"><a href="../../scripts/Section.py?Section='+section+'">' + section + ' (' + str(SortNums[SortList.index(section)]+ ') Packages</a></ul>'

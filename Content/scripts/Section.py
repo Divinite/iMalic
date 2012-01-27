@@ -28,9 +28,10 @@ for row in c:
         PackageList[str(row[1])]=str(row[0])
     else:
         PackageList[str(row[1])]=str(row[1])
-
+print '<body>'
 for PID in PackageList:
-    print '<div id="PackageList"><a href="../scripts/Package.py?Package='+PID+'">'+PackageList[PID]+'</a></div>'
+    print '<div id="package-list"><a href="../scripts/Package.py?Package='+PID+'">'+PackageList[PID]+'</a></div><br />'
+print '</body>'
 c.close()
 db.close()
 
