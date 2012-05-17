@@ -1,7 +1,5 @@
-BackEnd:
-- Add dependancy resolution
-- Add fetching of packages for installation
-- Add updating of sources
-- Add source listing/adding/removal
+[|] Low level - Add dependancy resolution
+[|] Low level - Add fetching of packages for installation
+[|||] High level - Add updating of sources
+[||] Med level - Add source listing/adding/removal
 
-FrontEnd: 
